@@ -20,6 +20,63 @@ function showScreen(screenId) {
     });
     document.getElementById(screenId).classList.add('active');
 }
+// JavaScript לדף הבית
+const mainMenuButtons = [
+    {
+        id: 'cprButton',
+        icon: 'ri-heart-pulse-fill',
+        label: 'החייאת מציל בודד',
+        screen: 'singleCPR',
+        color: '#ef4444'
+    },
+    {
+        id: 'teamButton',
+        icon: 'ri-team-fill',
+        label: 'החייאת צוות',
+        screen: 'teamCPR',
+        color: '#3b82f6'
+    },
+    {
+        id: 'timerButton',
+        icon: 'ri-timer-fill',
+        label: 'מדידת דופק',
+        screen: 'bpTimer',
+        color: '#10b981'
+    },
+    {
+        id: 'translatorButton',
+        icon: 'ri-translate-2',
+        label: 'מתורגמן רפואי',
+        screen: 'translator',
+        color: '#8b5cf6'
+    }
+];
+
+function initializeMainMenu() {
+    const grid = document.querySelector('.main-grid');
+    grid.innerHTML = '';
+
+    mainMenuButtons.forEach(button => {
+        const buttonElement = document.createElement('button');
+        buttonElement.id = button.id;
+        buttonElement.className = 'menu-button';
+        buttonElement.style.setProperty('--button-color', button.color);
+        
+        buttonElement.innerHTML = `
+            <i class="${button.icon}"></i>
+            <span>${button.label}</span>
+        `;
+        
+        buttonElement.addEventListener('click', () => {
+            showScreen(button.screen);
+        });
+        
+        grid.appendChild(buttonElement);
+    });
+}
+
+// הפעלה בטעינת הדף
+document.addEventListener('DOMContentLoaded', initializeMainMenu);
 
 // מערכת שמע
 class AudioSystem {
@@ -278,59 +335,267 @@ class BPTimerSystem {
 // נתוני מתורגמן
 const translatorData = {
     categories: [
-        { id: 'pain', icon: '🤕', label: 'כאב' },
-        { id: 'medical_history', icon: '📋', label: 'רקע רפואי' },
-        { id: 'allergies', icon: '💊', label: 'אלרגיות' },
-        { id: 'medications', icon: '💉', label: 'תרופות' },
-        { id: 'chest_pain', icon: '❤️', label: 'כאבי חזה' },
-        { id: 'breathing', icon: '🫁', label: 'נשימה' },
-        { id: 'dizzy', icon: '😵', label: 'סחרחורת' },
-        { id: 'help', icon: '🚑', label: 'עזרה כללית' }
+        { id: 'emergency', icon: 'ri-alarm-warning-fill', label: 'חירום מיידי', color: '#ef4444' },
+        { id: 'stroke', icon: 'ri-brain-fill', label: 'חשד לשבץ', color: '#8b5cf6' },
+        { id: 'heart', icon: 'ri-heart-pulse-fill', label: 'חשד ללב', color: '#ec4899' },
+        { id: 'basic', icon: 'ri-message-3-fill', label: 'בסיסי', color: '#3b82f6' },
+        { id: 'pain', icon: 'ri-medicine-bottle-fill', label: 'כאב', color: '#f59e0b' },
+        { id: 'medical', icon: 'ri-hospital-fill', label: 'רקע רפואי', color: '#10b981' },
+        { id: 'neuro', icon: 'ri-mental-health-fill', label: 'בדיקה נוירולוגית', color: '#6366f1' },
+        { id: 'breathing', icon: 'ri-lungs-fill', label: 'נשימה', color: '#0ea5e9' },
+        { id: 'trauma', icon: 'ri-service-fill', label: 'חבלה', color: '#f43f5e' }
     ],
     phrases: {
-        pain: {
-            he: "איפה כואב לך?",
-            ru: "Где болит?",
-            en: "Where does it hurt?"
-        },
-        medical_history: {
-            he: "יש לך מחלות רקע?",
-            ru: "У вас есть хронические заболевания?",
-            en: "Do you have any medical conditions?"
-        },
-        allergies: {
-            he: "יש לך אלרגיות לתרופות?",
-            ru: "У вас есть аллергия на лекарства?",
-            en: "Are you allergic to any medications?"
-        },
-        medications: {
-            he: "אילו תרופות אתה לוקח?",
-            ru: "Какие лекарства вы принимаете?",
-            en: "What medications are you taking?"
-        },
-        chest_pain: {
-            he: "יש לך כאבים בחזה?",
-            ru: "У вас болит грудь?",
-            en: "Do you have chest pain?"
-        },
-        breathing: {
-            he: "יש לך קשיי נשימה?",
-            ru: "Вам тяжело дышать?",
-            en: "Do you have difficulty breathing?"
-        },
-        dizzy: {
-            he: "מרגיש סחרחורת?",
-            ru: "У вас кружится голова?",
-            en: "Are you feeling dizzy?"
-        },
-        help: {
-            he: "אנחנו כאן לעזור לך",
-            ru: "Мы здесь, чтобы помочь вам",
-            en: "We're here to help you"
-        }
+        emergency: [
+            {
+                he: "אתה שומע אותי?",
+                ru: "Вы меня слышите?",
+                en: "Can you hear me?"
+            },
+            {
+                he: "אתה יכול לדבר?",
+                ru: "Вы можете говорить?",
+                en: "Can you speak?"
+            },
+            {
+                he: "אל תזוז",
+                ru: "Не двигайтесь",
+                en: "Don't move"
+            },
+            {
+                he: "אנחנו פה כדי לעזור",
+                ru: "Мы здесь, чтобы помочь",
+                en: "We're here to help"
+            }
+        ],
+        stroke: [
+            {
+                he: "תחייך בבקשה",
+                ru: "Улыбнитесь, пожалуйста",
+                en: "Please smile"
+            },
+            {
+                he: "תרים את שתי הידיים",
+                ru: "Поднимите обе руки",
+                en: "Raise both arms"
+            },
+            {
+                he: "תחזור אחרי: שלום, תודה, בוקר טוב",
+                ru: "Повторите за мной: привет, спасибо, доброе утро",
+                en: "Repeat after me: hello, thank you, good morning"
+            },
+            {
+                he: "תוציא לשון",
+                ru: "Покажите язык",
+                en: "Stick out your tongue"
+            },
+            {
+                he: "יש לך חולשה בצד אחד?",
+                ru: "Есть слабость с одной стороны?",
+                en: "Do you have weakness on one side?"
+            },
+            {
+                he: "אתה מרגיש נימול?",
+                ru: "Чувствуете онемение?",
+                en: "Do you feel numbness?"
+            }
+        ],
+        heart: [
+            {
+                he: "יש לך כאבים בחזה?",
+                ru: "Болит в груди?",
+                en: "Do you have chest pain?"
+            },
+            {
+                he: "הכאב מקרין ליד שמאל?",
+                ru: "Боль отдает в левую руку?",
+                en: "Does the pain spread to your left arm?"
+            },
+            {
+                he: "יש לך קוצר נשימה?",
+                ru: "Вам тяжело дышать?",
+                en: "Are you short of breath?"
+            },
+            {
+                he: "אתה מזיע?",
+                ru: "Вы потеете?",
+                en: "Are you sweating?"
+            },
+            {
+                he: "יש לך בחילה?",
+                ru: "Вас тошнит?",
+                en: "Do you feel nauseous?"
+            },
+            {
+                he: "לקחת ניטרו?",
+                ru: "Принимали нитроглицерин?",
+                en: "Did you take nitro?"
+            }
+        ],
+        basic: [
+            {
+                he: "איך קוראים לך?",
+                ru: "Как вас зовут?",
+                en: "What is your name?"
+            },
+            {
+                he: "בן כמה אתה?",
+                ru: "Сколько вам лет?",
+                en: "How old are you?"
+            },
+            {
+                he: "אתה מדבר עברית?",
+                ru: "Вы говорите на иврите?",
+                en: "Do you speak Hebrew?"
+            },
+            {
+                he: "תנשום עמוק",
+                ru: "Глубоко вдохните",
+                en: "Take a deep breath"
+            },
+            {
+                he: "תפתח את העיניים",
+                ru: "Откройте глаза",
+                en: "Open your eyes"
+            }
+        ],
+        pain: [
+            {
+                he: "איפה כואב?",
+                ru: "Где болит?",
+                en: "Where does it hurt?"
+            },
+            {
+                he: "מתי זה התחיל?",
+                ru: "Когда это началось?",
+                en: "When did it start?"
+            },
+            {
+                he: "הכאב חזק או חלש?",
+                ru: "Боль сильная или слабая?",
+                en: "Is the pain strong or weak?"
+            },
+            {
+                he: "הכאב מקרין למקום אחר?",
+                ru: "Боль отдает куда-нибудь?",
+                en: "Does the pain spread anywhere?"
+            },
+            {
+                he: "זה כואב כל הזמן?",
+                ru: "Болит постоянно?",
+                en: "Does it hurt all the time?"
+            }
+        ],
+        medical: [
+            {
+                he: "יש לך מחלות רקע?",
+                ru: "Есть хронические заболевания?",
+                en: "Do you have any medical conditions?"
+            },
+            {
+                he: "אתה לוקח תרופות?",
+                ru: "Принимаете лекарства?",
+                en: "Do you take medications?"
+            },
+            {
+                he: "יש לך אלרגיות?",
+                ru: "Есть аллергия?",
+                en: "Do you have allergies?"
+            },
+            {
+                he: "יש לך לחץ דם גבוה?",
+                ru: "У вас высокое давление?",
+                en: "Do you have high blood pressure?"
+            },
+            {
+                he: "יש לך סוכרת?",
+                ru: "У вас диабет?",
+                en: "Do you have diabetes?"
+            }
+        ],
+        neuro: [
+            {
+                he: "אתה יודע איפה אתה?",
+                ru: "Вы знаете, где вы находитесь?",
+                en: "Do you know where you are?"
+            },
+            {
+                he: "איזה יום היום?",
+                ru: "Какой сегодня день?",
+                en: "What day is it?"
+            },
+            {
+                he: "כמה אצבעות אני מרים?",
+                ru: "Сколько пальцев я показываю?",
+                en: "How many fingers am I holding up?"
+            },
+            {
+                he: "תלחץ את היד שלי",
+                ru: "Сожмите мою руку",
+                en: "Squeeze my hand"
+            },
+            {
+                he: "אתה רואה טוב?",
+                ru: "Хорошо видите?",
+                en: "Can you see clearly?"
+            }
+        ],
+        breathing: [
+            {
+                he: "קשה לך לנשום?",
+                ru: "Тяжело дышать?",
+                en: "Is it hard to breathe?"
+            },
+            {
+                he: "יש לך שיעול?",
+                ru: "Есть кашель?",
+                en: "Do you have a cough?"
+            },
+            {
+                he: "יש לך ליחה?",
+                ru: "Есть мокрота?",
+                en: "Do you have phlegm?"
+            },
+            {
+                he: "יש לך אסטמה?",
+                ru: "У вас астма?",
+                en: "Do you have asthma?"
+            },
+            {
+                he: "השתמשת במשאף?",
+                ru: "Пользовались ингалятором?",
+                en: "Did you use an inhaler?"
+            }
+        ],
+        trauma: [
+            {
+                he: "איפה נחבלת?",
+                ru: "Где ударились?",
+                en: "Where were you hurt?"
+            },
+            {
+                he: "נפלת?",
+                ru: "Вы упали?",
+                en: "Did you fall?"
+            },
+            {
+                he: "איבדת הכרה?",
+                ru: "Теряли сознание?",
+                en: "Did you lose consciousness?"
+            },
+            {
+                he: "אתה יכול להזיז את היד/רגל?",
+                ru: "Можете двигать рукой/ногой?",
+                en: "Can you move your arm/leg?"
+            },
+            {
+                he: "יש דימום?",
+                ru: "Есть кровотечение?",
+                en: "Is there bleeding?"
+            }
+        ]
     }
 };
-
 // אתחול המערכות
 document.addEventListener('DOMContentLoaded', () => {
     // אתחול מערכות CPR
@@ -420,44 +685,88 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // אתחול מתורגמן
-    const categoriesGrid = document.querySelector('.categories-grid');
-    const translationDisplay = document.getElementById('translationDisplay');
-    let selectedCategory = null;
+    // אתחול מתורגמן
+const categoriesGrid = document.querySelector('.categories-grid');
+const translationDisplay = document.getElementById('translationDisplay');
+let selectedCategory = null;
 
-    // יצירת כפתורי קטגוריות
-    translatorData.categories.forEach(category => {
-        const button = document.createElement('button');
-        button.className = 'category-button';
-        button.innerHTML = `
-            <span class="icon">${category.icon}</span>
-            <span>${category.label}</span>
+// יצירת כפתורי קטגוריות
+translatorData.categories.forEach(category => {
+    const button = document.createElement('button');
+    button.className = 'category-button';
+    // מגדיר את הצבע הייחודי לקטגוריה
+    button.style.setProperty('--category-color', category.color);
+    
+    button.innerHTML = `
+        <i class="${category.icon} category-icon"></i>
+        <span class="category-label">${category.label}</span>
+    `;
+    
+    button.addEventListener('click', () => {
+        // מסיר את הסלקציה מכל הכפתורים
+        document.querySelectorAll('.category-button').forEach(btn => 
+            btn.classList.remove('selected')
+        );
+        // מוסיף סלקציה לכפתור הנוכחי
+        button.classList.add('selected');
+        selectedCategory = category.id;
+        showTranslations(category.id);
+    });
+    
+    categoriesGrid.appendChild(button);
+});
+
+function showTranslations(categoryId) {
+    // עדכון כותרת
+    document.getElementById('translationsTitle').textContent = 
+        translatorData.categories.find(cat => cat.id === categoryId).label;
+    
+    // עדכון התוכן
+    const translationsContent = document.getElementById('translationsContent');
+    translationsContent.innerHTML = '';
+    
+    const phrases = translatorData.phrases[categoryId];
+    phrases.forEach(phrase => {
+        const translationCard = document.createElement('div');
+        translationCard.className = 'translation-group';
+        
+        translationCard.innerHTML = `
+            <div class="translation-row">
+                <span class="lang-tag">עברית</span>
+                <span class="translation-text">${phrase.he}</span>
+                <button class="play-button" onclick="playTranslation('${phrase.he}', 'he')">
+                    <i class="ri-volume-up-fill"></i>
+                </button>
+            </div>
+            <div class="translation-row">
+                <span class="lang-tag">RU</span>
+                <span class="translation-text">${phrase.ru}</span>
+                <button class="play-button" onclick="playTranslation('${phrase.ru}', 'ru')">
+                    <i class="ri-volume-up-fill"></i>
+                </button>
+            </div>
+            <div class="translation-row">
+                <span class="lang-tag">EN</span>
+                <span class="translation-text">${phrase.en}</span>
+                <button class="play-button" onclick="playTranslation('${phrase.en}', 'en')">
+                    <i class="ri-volume-up-fill"></i>
+                </button>
+            </div>
         `;
-        button.addEventListener('click', () => {
-            document.querySelectorAll('.category-button').forEach(btn => 
-                btn.classList.remove('selected')
-            );
-            button.classList.add('selected');
-            selectedCategory = category.id;
-            showTranslations(category.id);
-        });
-        categoriesGrid.appendChild(button);
+        
+        translationsContent.appendChild(translationCard);
     });
 
-    function showTranslations(categoryId) {
-        const phrases = translatorData.phrases[categoryId];
-        translationDisplay.innerHTML = '';
-        
-        Object.entries(phrases).forEach(([lang, text]) => {
-            const div = document.createElement('div');
-            div.className = 'translation-item';
-            div.innerHTML = `
-                <span>${text}</span>
-                <button class="play-button" onclick="playTranslation('${text}', '${lang}')">
-                    🔊
-                </button>
-            `;
-            translationDisplay.appendChild(div);
-        });
+    // מעבר למסך התרגומים
+    showScreen('translationsList');
+}
+    function getLangLabel(lang) {
+        switch(lang) {
+            case 'he': return 'עברית';
+            case 'ru': return 'РУС';
+            case 'en': return 'ENG';
+            default: return lang;
+        }
     }
 
     // פונקציית השמעה גלובלית למתורגמן
