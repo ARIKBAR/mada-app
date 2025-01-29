@@ -3,155 +3,135 @@ import { Heart, Users2, Timer, ArrowRight, Home, Pause, Play, RefreshCw, Volume2
 
 // משפטים נפוצים למתורגמן
 const commonPhrases = {
-    pain: {
-      he: "איפה כואב לך?",
-      ru: "Где болит?",
-      en: "Where does it hurt?",
-    },
-    medical_history: {
-      he: "יש לך מחלות רקע?",
-      ru: "У вас есть хронические заболевания?",
-      en: "Do you have any medical conditions?",
-    },
-    allergies: {
-      he: "יש לך אלרגיות לתרופות?",
-      ru: "У вас есть аллергия на лекарства?",
-      en: "Are you allergic to any medications?",
-    },
-    medications: {
-      he: "אילו תרופות אתה לוקח?",
-      ru: "Какие лекарства вы принимаете?",
-      en: "What medications are you taking?",
-    },
-    chest_pain: {
-      he: "יש לך כאבים בחזה?",
-      ru: "У вас болит грудь?",
-      en: "Do you have chest pain?",
-    },
-    breathing: {
-      he: "יש לך קשיי נשימה?",
-      ru: "Вам тяжело дышать?",
-      en: "Do you have difficulty breathing?",
-    },
-    dizzy: {
-      he: "מרגיש סחרחורת?",
-      ru: "У вас кружится голова?",
-      en: "Are you feeling dizzy?",
-    },
-    help: {
-      he: "אנחנו כאן לעזור לך",
-      ru: "Мы здесь, чтобы помочь вам",
-      en: "We're here to help you",
-    },
-  };
-  
-  const categories = [
-    { id: "pain", icon: "🤕", label: "כאב" },
-    { id: "medical_history", icon: "📋", label: "רקע רפואי" },
-    { id: "allergies", icon: "💊", label: "אלרגיות" },
-    { id: "medications", icon: "💉", label: "תרופות" },
-    { id: "chest_pain", icon: "❤️", label: "כאבי חזה" },
-    { id: "breathing", icon: "🫁", label: "נשימה" },
-    { id: "dizzy", icon: "😵", label: "סחרחורת" },
-    { id: "help", icon: "🚑", label: "עזרה כללית" },
-  ];
-  
-  const TranslatorScreen = () => {
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [voices, setVoices] = useState([]);
-  
-    // טוען את רשימת הקולות
-    useEffect(() => {
-      const loadVoices = () => {
-        const availableVoices = window.speechSynthesis.getVoices();
-        console.log("Available voices:", availableVoices);
-        setVoices(availableVoices);
-      };
-  
-      loadVoices();
-      window.speechSynthesis.onvoiceschanged = loadVoices;
-    }, []);
-  
-    const getVoice = (lang) => {
-      switch (lang) {
-        case "ru":
-          return (
-            voices.find((voice) => voice.lang === "ru-RU") ||
-            voices.find((voice) => voice.name.includes("Google русский"))
-          );
-        case "en":
-          return voices.find((voice) => voice.lang === "en-US");
-        default:
-          return voices.find((voice) => voice.lang === "he-IL");
-      }
+  "pain": {
+    "he": "איפה כואב לך?",
+    "ru": "Где болит?",
+    "en": "Where does it hurt?"
+  },
+  "medical_history": {
+    "he": "יש לך מחלות רקע?",
+    "ru": "У вас есть хронические заболевания?",
+    "en": "Do you have any medical conditions?"
+  },
+  "allergies": {
+    "he": "יש לך אלרגיות לתרופות?",
+    "ru": "У вас есть аллергия на лекарства?",
+    "en": "Are you allergic to any medications?"
+  },
+  "medications": {
+    "he": "אילו תרופות אתה לוקח?",
+    "ru": "Какие лекарства вы принимаете?",
+    "en": "What medications are you taking?"
+  },
+  "chest_pain": {
+    "he": "יש לך כאבים בחזה?",
+    "ru": "У вас болит грудь?",
+    "en": "Do you have chest pain?"
+  },
+  "breathing": {
+    "he": "יש לך קשיי נשימה?",
+    "ru": "Вам тяжело дышать?",
+    "en": "Do you have difficulty breathing?"
+  },
+  "dizzy": {
+    "he": "מרגיש סחרחורת?",
+    "ru": "У вас кружится голова?",
+    "en": "Are you feeling dizzy?"
+  },
+  "help": {
+    "he": "אנחנו כאן לעזור לך",
+    "ru": "Мы здесь, чтобы помочь вам",
+    "en": "We're here to help you"
+  }
+};
+
+const categories = [
+  { id: 'pain', icon: '🤕', label: 'כאב' },
+  { id: 'medical_history', icon: '📋', label: 'רקע רפואי' },
+  { id: 'allergies', icon: '💊', label: 'אלרגיות' },
+  { id: 'medications', icon: '💉', label: 'תרופות' },
+  { id: 'chest_pain', icon: '❤️', label: 'כאבי חזה' },
+  { id: 'breathing', icon: '🫁', label: 'נשימה' },
+  { id: 'dizzy', icon: '😵', label: 'סחרחורת' },
+  { id: 'help', icon: '🚑', label: 'עזרה כללית' },
+];
+
+const TranslatorScreen = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const speak = async (text, lang) => {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+
+    const voices = window.speechSynthesis.getVoices();
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    // בחירת קול ספציפי לשפה
+    if (lang === 'ru') {
+      utterance.lang = 'ru-RU';
+      utterance.voice = voices.find(voice => voice.name === 'Google русский');
+    } else if (lang === 'en') {
+      utterance.lang = 'en-US';
+      utterance.voice = voices.find(voice => voice.lang === 'en-US');
+    } else {
+      utterance.lang = 'he-IL';
+      utterance.voice = voices.find(voice => voice.lang === 'he-IL');
+    }
+
+    // בדיקת קול לפני הפעלה
+    if (!utterance.voice) {
+      console.error(`No voice found for language: ${lang}`);
+      return;
+    }
+
+    utterance.volume = 1;
+    utterance.rate = 1;
+
+    utterance.onerror = (event) => {
+      console.error('Speech synthesis error:', event.error);
     };
-  
-    const speak = async (text, lang) => {
-      if (!("speechSynthesis" in window)) {
-        console.error("Speech synthesis is not supported in this browser.");
-        return;
-      }
-  
-      window.speechSynthesis.cancel();
-  
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = lang === "ru" ? "ru-RU" : lang === "en" ? "en-US" : "he-IL";
-      utterance.voice = getVoice(lang);
-  
-      if (!utterance.voice) {
-        console.error(`No voice found for language: ${lang}`);
-        return;
-      }
-  
-      utterance.volume = 1;
-      utterance.rate = 1;
-      utterance.onerror = (event) => {
-        console.error("Speech synthesis error:", event.error);
-      };
-  
-      console.log(`Speaking in ${lang}:`, text);
-      console.log("Selected voice:", utterance.voice);
-  
-      window.speechSynthesis.speak(utterance);
-    };
-  
-    return (
-      <div className="p-4 max-w-md mx-auto">
-        <div className="bg-white shadow p-4 space-y-4 rounded-lg">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">מתורגמן רפואי</h2>
-  
-          <div className="grid grid-cols-2 gap-3">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`h-32 flex flex-col items-center justify-center p-4 border-2 rounded-lg ${
-                  selectedCategory === category.id ? "border-red-600" : "border-gray-200"
-                }`}
-              >
-                <span className="text-2xl mb-2">{category.icon}</span>
-                <span className="text-sm font-medium">{category.label}</span>
-              </button>
+
+    window.speechSynthesis.speak(utterance);
+  }
+};
+
+
+  return (
+    <div className="p-4 max-w-md mx-auto">
+      <div className="bg-white shadow p-4 space-y-4 rounded-lg">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">מתורגמן רפואי</h2>
+        
+        <div className="grid grid-cols-2 gap-3">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`h-32 flex flex-col items-center justify-center p-4 border-2 rounded-lg
+                ${selectedCategory === category.id ? 'border-red-600' : 'border-gray-200'}`}
+            >
+              <span className="text-2xl mb-2">{category.icon}</span>
+              <span className="text-sm font-medium">{category.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {selectedCategory && (
+          <div className="mt-6 space-y-4">
+            {Object.entries(commonPhrases[selectedCategory]).map(([lang, text]) => (
+              <div key={lang} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span className="text-sm">{text}</span>
+                <button
+                  onClick={() => speak(text, lang)}
+                  className="p-2 text-red-600 bg-white shadow rounded-full"
+                >
+                  <Volume2 size={20} />
+                </button>
+              </div>
             ))}
           </div>
-  
-          {selectedCategory && (
-            <div className="mt-6 space-y-4">
-              {Object.entries(commonPhrases[selectedCategory]).map(([lang, text]) => (
-                <div key={lang} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="text-sm">{text}</span>
-                  <button
-                    onClick={() => speak(text, lang)}
-                    className="p-2 text-red-600 bg-white shadow rounded-full"
-                  >
-                    <Volume2 size={20} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        )}
       </div>
+    </div>
   );
 };
 
