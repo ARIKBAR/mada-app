@@ -19,6 +19,9 @@ body {
     min-height: 100vh;
     padding-top: var(--header-height);
 }
+h1{
+    font-size: 26px;
+}
 
 /* Header */
 .app-header {
@@ -31,7 +34,7 @@ body {
     color: white;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 0 16px;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -110,18 +113,221 @@ body {
 }
 
 .big-number {
-    font-size: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 50px;
     font-weight: 700;
     color: var(--mda-red);
     line-height: 1;
 }
+/* עיצוב למסך מדידת דופק */
+.bp-container {
+    max-width: 360px;
+    margin: 0 auto;
+    padding: 16px;
+}
 
-.phase-text {
-    font-size: 24px;
+/* תצוגת הטיימר */
+.bp-counter-display {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 24px;
+}
+
+.bp-timer {
+    font-size: 72px;
+    font-weight: 700;
+    color: #dc2626;
+    line-height: 1;
+}
+
+.bp-label {
+    font-size: 20px;
     color: #374151;
     margin-top: 8px;
 }
 
+/* אזור הזנת הדופק */
+.pulse-input {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-top: 24px;
+}
+
+.pulse-input input {
+    width: 120px;
+    height: 56px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    margin: 16px 0;
+    transition: all 0.3s ease;
+}
+
+.pulse-input input:focus {
+    border-color: #dc2626;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.estimated-result {
+    font-size: 20px;
+    font-weight: 500;
+    color: #dc2626;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: #fef2f2;
+    border-radius: 8px;
+    display: inline-block;
+}
+/* Footer קבוע */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #dc2626;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.home-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.home-button i {
+    font-size: 20px;
+}
+.screen {
+    padding-bottom: 72px; /* מוסיף מרווח בתחתית עבור ה-footer */
+}
+
+/* כפתורי שליטה */
+.bp-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.phase-text {
+    font-size: 20px;
+    margin-top: 8px;
+}
+/* אזור ההתראה להנשמות */
+.breathing-alert {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    text-align: center;
+    font-size: 16px;  /* הקטנת הטקסט */
+    font-weight: 500;
+    animation: breathe-pulse 2s infinite;
+}
+
+/* אנימציית הבהוב עדינה */
+@keyframes breathe-pulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+}
+
+.alert {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    animation: breathe-pulse 2s infinite;
+}
+
+@keyframes breathe-pulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+}
+@keyframes breathe-pulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+}
+
+.blinking-text {
+    animation: modern-blink 2s infinite;
+    color: #16a34a;  /* ירוק כהה */
+    font-weight: 600;
+    padding: 8px 16px;
+    background: #dcfce7;  /* ירוק בהיר */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes modern-blink {
+    0% { 
+        opacity: 1;
+        transform: scale(1);
+        background: #dcfce7;
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(0.98);
+        background: #bbf7d0;
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1);
+        background: #dcfce7;
+    }
+}
+
+
+.phase-text {
+    font-size: 16px;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+}
 /* Controls */
 .controls {
     display: flex;
@@ -194,7 +400,6 @@ body {
 .cycle-summary h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #374151;
     margin-bottom: 12px;
 }
 
@@ -310,4 +515,10 @@ body {
 
 .hidden {
     display: none !important;
+}
+.instructions{
+    font-size: 16px;
+    font-weight: 500;
+    color: #374151;
+    margin-top: 16px;
 }

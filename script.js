@@ -1,3 +1,18 @@
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById(screenId).classList.add('active');
+
+    // מסתיר/מציג את ה-footer בהתאם למסך
+    const footer = document.querySelector('.app-footer');
+    if (screenId === 'mainMenu') {
+        footer.style.display = 'none';
+    } else {
+        footer.style.display = 'flex';
+    }
+}
+
 // ניהול מסכים
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(screen => {
@@ -106,15 +121,15 @@ class CPRSystem {
         const cycleTimer = document.getElementById(`${elementsPrefix}CycleTimer`);
         const currentCycle = document.getElementById(`${elementsPrefix}CurrentCycle`);
         const completedCycles = document.getElementById(`${elementsPrefix}CompletedCycles`);
-
         if (this.currentPhase === 'compressions') {
             counter.textContent = this.compressionCount;
             phaseText.textContent = 'עיסויים';
+            phaseText.classList.remove('blinking-text');  // מסיר את האנימציה במצב עיסויים
         } else {
-            counter.textContent = 'נשימות';
-            phaseText.textContent = 'תן 2 נשימות';
+            counter.textContent = 'הנשמות';
+            phaseText.textContent = ' תן שני הנשמות עד לעליית בית חזה הקפד על חזרה מלאה';
+            phaseText.classList.add('blinking-text');  // מוסיף אנימציה במצב הנשמות
         }
-
         cycleTimer.textContent = `זמן: ${this.formatTime(this.cycleTimer)}`;
 
         // עדכון סיכום סבב נוכחי
@@ -132,7 +147,7 @@ class CPRSystem {
                 <div class="cycle-info">
                     סבב ${cycle.number}: ${cycle.compressions} עיסויים
                     <br>
-                    זמן: ${cycle.timestamp}
+                    שעה: ${cycle.timestamp}
                 </div>
             `)
             .join('');
@@ -148,20 +163,20 @@ class CPRSystem {
                     this.compressionCount++;
                     this.currentCycleCompressions++;
 
-                    const maxCount = this.isTeamMode ? 15 : 30;
+                    const maxCount = this.isTeamMode ? 16 : 30;
                     if (this.compressionCount >= maxCount) {
                         this.currentPhase = 'breaths';
                         this.compressionCount = 0;
                         this.audioSystem.stopAll();
-                        this.audioSystem.speakText("תן שתי נשימות עד לעליית בית החזה");
+                        this.audioSystem.speakText("תן שתי הנשמות עד לעליית בית החזה");
 
                         setTimeout(() => {
                             this.currentPhase = 'compressions';
-                        }, 2000);
+                        }, 3000);
                     }
                 }
                 this.updateDisplay(elementsPrefix);
-            }, 600);
+            }, 500);
 
             // אתחול טיימר מחזור
             this.cycleInterval = setInterval(() => {
@@ -248,7 +263,7 @@ class BPTimerSystem {
 
     reset() {
         this.stop();
-        this.time = 15;
+        this.time = 16;
         this.updateDisplay();
         document.getElementById('pulseResult').classList.add('hidden');
         document.getElementById('pulseCount').value = '';
@@ -354,11 +369,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // אתחול אירועי CPR צוות
     document.getElementById('teamStartStop').addEventListener('click', function() {
         if (!teamCPR.isRunning) {
-            this.textContent = 'עצור';
+            this.innerHTML = '<i class="ri-pause-fill"></i>';
             this.classList.add('active');
             teamCPR.start('team');
         } else {
-            this.textContent = 'התחל';
+            this.innerHTML = '<i class="ri-play-fill"></i>';
             this.classList.remove('active');
             teamCPR.stop();
         }
@@ -372,17 +387,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('teamMute').addEventListener('click', function() {
         const isMuted = teamCPR.toggleMute();
+        this.innerHTML = isMuted ? 
+            '<i class="ri-volume-mute-fill"></i>' : 
+            '<i class="ri-volume-up-fill"></i>';
         this.classList.toggle('active', isMuted);
     });
 
     // אתחול אירועי מדידת דופק
     document.getElementById('bpStartStop').addEventListener('click', function() {
         if (!bpTimer.isRunning) {
-            this.textContent = 'עצור';
+            this.innerHTML = '<i class="ri-pause-fill"></i>';
             this.classList.add('active');
             bpTimer.start();
         } else {
-           this.textContent = 'התחל';
+            this.innerHTML = '<i class="ri-play-fill"></i>';
             this.classList.remove('active');
             bpTimer.stop();
         }

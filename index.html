@@ -16,12 +16,12 @@
 
         <main class="main-grid">
             <button class="menu-button" onclick="showScreen('singleCPR')">
-                <span class="icon">💓</span>
-                <span>החייאת מציל בודד</span>
+                <span class="icon">👨‍⚕</span>
+                <span>החייאת  בודד</span>
             </button>
             <button class="menu-button" onclick="showScreen('teamCPR')">
                 <span class="icon">👥</span>
-                <span>החייאת צוות</span>
+                <span>החייאת צוות בילדים</span>
             </button>
             <button class="menu-button" onclick="showScreen('bpTimer')">
                 <span class="icon">⏱️</span>
@@ -37,7 +37,7 @@
     <!-- מסך החייאת מציל בודד -->
     <div id="singleCPR" class="screen">
         <header class="app-header">
-            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+           
             <h1>החייאת מציל בודד</h1>
         </header>
 
@@ -68,7 +68,7 @@
             </div>
 
             <div class="instructions">
-                30 עיסויים, 2 נשימות
+                30 עיסויים, 2 הנשמות
                 <br>
                 קצב: 100-120 עיסויים לדקה
             </div>
@@ -78,7 +78,7 @@
     <!-- מסך החייאת צוות -->
     <div id="teamCPR" class="screen">
         <header class="app-header">
-            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+           
             <h1>החייאת צוות</h1>
         </header>
 
@@ -91,10 +91,17 @@
             <div id="teamCycleTimer" class="cycle-timer">זמן: 2:00</div>
 
             <div class="controls">
-                <button id="teamStartStop" class="control-button start">  <i class="ri-play-fill"></i></button>
-                <button id="teamReset" class="control-button reset"><i class="ri-restart-line"></i></button>
-                <button id="teamMute" class="control-button mute">  <i class="ri-volume-up-fill"></i></button>
+                <button id="teamStartStop" class="control-button start">
+                    <i class="ri-play-fill"></i>
+                </button>
+                <button id="teamMute" class="control-button mute">
+                    <i class="ri-volume-up-fill"></i>
+                </button>
+                <button id="teamReset" class="control-button reset">
+                    <i class="ri-restart-line"></i>
+                </button>
             </div>
+            
 
             <div class="cycle-summary">
                 <h3>סיכום סבבים</h3>
@@ -103,7 +110,7 @@
             </div>
 
             <div class="instructions">
-                15 עיסויים, 2 נשימות
+                15 עיסויים, 2 הנשמות
                 <br>
                 קצב: 100-120 עיסויים לדקה
             </div>
@@ -113,29 +120,37 @@
     <!-- מסך מדידת דופק -->
     <div id="bpTimer" class="screen">
         <header class="app-header">
-            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+           
             <h1>מדידת דופק</h1>
         </header>
 
-        <main class="bp-container">
-            <div id="bpCounter" class="big-number">15</div>
+        <div class="bp-container">
+            <div class="bp-counter-display">
+                <div class="bp-timer" id="bpCounter">15</div>
+                <div class="bp-label">שניות</div>
+            </div>
             
-            <div id="pulseResult" class="pulse-result hidden">
-                <input type="number" id="pulseCount" placeholder="מספר פעימות">
-                <div id="estimatedPulse" class="estimated-pulse"></div>
+            <div class="bp-controls">
+                <button id="bpStartStop" class="control-button start">
+                    <i class="ri-play-fill"></i>
+                </button>
+                <button id="bpReset" class="control-button reset">
+                    <i class="ri-restart-line"></i>
+                </button>
             </div>
-
-            <div class="controls">
-                <button id="bpStartStop" class="control-button start"><i class="ri-play-fill"></i></button>
-                <button id="bpReset" class="control-button reset"><i class="ri-restart-line"></i></button>
+        
+            <div id="pulseResult" class="pulse-input hidden">
+                <div class="input-label">הזן מספר פעימות שספרת:</div>
+                <input type="number" id="pulseCount" min="0" placeholder="0">
+                <div id="estimatedPulse" class="estimated-result"></div>
             </div>
-        </main>
+        </div>
     </div>
 
     <!-- מסך מתורגמן -->
     <div id="translator" class="screen">
         <header class="app-header">
-            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+           
             <h1>מתורגמן רפואי</h1>
         </header>
 
@@ -149,7 +164,13 @@
             </div>
         </main>
     </div>
-
+<!-- Footer -->
+<footer class="app-footer">
+    <button class="home-button" onclick="showScreen('mainMenu')">
+        <i class="ri-home-fill"></i>
+       
+    </button>
+</footer>
     <script src="script.js"></script>
 </body>
 </html>
