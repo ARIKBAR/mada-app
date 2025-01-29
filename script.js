@@ -327,11 +327,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // אתחול אירועי CPR מציל בודד
     document.getElementById('singleStartStop').addEventListener('click', function() {
         if (!singleCPR.isRunning) {
-            this.textContent = 'עצור';
+            this.innerHTML = '<i class="ri-pause-fill"></i>';
             this.classList.add('active');
             singleCPR.start('single');
         } else {
-            this.textContent = 'התחל';
+            this.innerHTML = '<i class="ri-play-fill"></i>';
             this.classList.remove('active');
             singleCPR.stop();
         }
@@ -345,6 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('singleMute').addEventListener('click', function() {
         const isMuted = singleCPR.toggleMute();
+        this.innerHTML = isMuted ? 
+            '<i class="ri-volume-mute-fill"></i>' : 
+            '<i class="ri-volume-up-fill"></i>';
         this.classList.toggle('active', isMuted);
     });
 
