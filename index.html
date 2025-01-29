@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>כלי חירום - מד"א</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- תפריט ראשי -->
+    <div id="mainMenu" class="screen active">
+        <header class="app-header">
+            <h1>כלי חירום</h1>
+        </header>
+
+        <main class="main-grid">
+            <button class="menu-button" onclick="showScreen('singleCPR')">
+                <span class="icon">💓</span>
+                <span>החייאת מציל בודד</span>
+            </button>
+            <button class="menu-button" onclick="showScreen('teamCPR')">
+                <span class="icon">👥</span>
+                <span>החייאת צוות</span>
+            </button>
+            <button class="menu-button" onclick="showScreen('bpTimer')">
+                <span class="icon">⏱️</span>
+                <span>מדידת דופק</span>
+            </button>
+            <button class="menu-button" onclick="showScreen('translator')">
+                <span class="icon">🗣️</span>
+                <span>מתורגמן רפואי</span>
+            </button>
+        </main>
+    </div>
+
+    <!-- מסך החייאת מציל בודד -->
+    <div id="singleCPR" class="screen">
+        <header class="app-header">
+            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+            <h1>החייאת מציל בודד</h1>
+        </header>
+
+        <main class="cpr-container">
+            <div class="counter-display">
+                <div id="singleCompressionsCounter" class="big-number">0</div>
+                <div id="singlePhaseText" class="phase-text">עיסויים</div>
+            </div>
+
+            <div id="singleCycleTimer" class="cycle-timer">זמן: 2:00</div>
+
+            <div class="controls">
+                <button id="singleStartStop" class="control-button start">התחל</button>
+                <button id="singleReset" class="control-button reset">איפוס</button>
+                <button id="singleMute" class="control-button mute">השתק</button>
+            </div>
+
+            <div class="cycle-summary">
+                <h3>סיכום סבבים</h3>
+                <div id="singleCurrentCycle" class="current-cycle"></div>
+                <div id="singleCompletedCycles" class="completed-cycles"></div>
+            </div>
+
+            <div class="instructions">
+                30 עיסויים, 2 נשימות
+                <br>
+                קצב: 100-120 עיסויים לדקה
+            </div>
+        </main>
+    </div>
+
+    <!-- מסך החייאת צוות -->
+    <div id="teamCPR" class="screen">
+        <header class="app-header">
+            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+            <h1>החייאת צוות</h1>
+        </header>
+
+        <main class="cpr-container">
+            <div class="counter-display">
+                <div id="teamCompressionsCounter" class="big-number">0</div>
+                <div id="teamPhaseText" class="phase-text">עיסויים</div>
+            </div>
+
+            <div id="teamCycleTimer" class="cycle-timer">זמן: 2:00</div>
+
+            <div class="controls">
+                <button id="teamStartStop" class="control-button start">התחל</button>
+                <button id="teamReset" class="control-button reset">איפוס</button>
+                <button id="teamMute" class="control-button mute">השתק</button>
+            </div>
+
+            <div class="cycle-summary">
+                <h3>סיכום סבבים</h3>
+                <div id="teamCurrentCycle" class="current-cycle"></div>
+                <div id="teamCompletedCycles" class="completed-cycles"></div>
+            </div>
+
+            <div class="instructions">
+                15 עיסויים, 2 נשימות
+                <br>
+                קצב: 100-120 עיסויים לדקה
+            </div>
+        </main>
+    </div>
+
+    <!-- מסך מדידת דופק -->
+    <div id="bpTimer" class="screen">
+        <header class="app-header">
+            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+            <h1>מדידת דופק</h1>
+        </header>
+
+        <main class="bp-container">
+            <div id="bpCounter" class="big-number">15</div>
+            
+            <div id="pulseResult" class="pulse-result hidden">
+                <input type="number" id="pulseCount" placeholder="מספר פעימות">
+                <div id="estimatedPulse" class="estimated-pulse"></div>
+            </div>
+
+            <div class="controls">
+                <button id="bpStartStop" class="control-button start">התחל</button>
+                <button id="bpReset" class="control-button reset">איפוס</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- מסך מתורגמן -->
+    <div id="translator" class="screen">
+        <header class="app-header">
+            <button class="back-button" onclick="showScreen('mainMenu')">חזרה</button>
+            <h1>מתורגמן רפואי</h1>
+        </header>
+
+        <main class="translator-container">
+            <div class="categories-grid">
+                <!-- קטגוריות יתווספו דינמית דרך JavaScript -->
+            </div>
+
+            <div id="translationDisplay" class="translation-display">
+                <!-- תרגומים יוצגו כאן -->
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

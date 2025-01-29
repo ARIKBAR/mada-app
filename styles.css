@@ -1,0 +1,303 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f3f4f6;
+    min-height: 100vh;
+}
+
+/* Layout */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 16px 70px;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* Header */
+.app-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 56px;
+    background: #dc2626;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
+}
+
+.app-header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+.back-button {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.back-button i {
+    font-size: 24px;
+}
+
+/* Footer */
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 60px;
+    background: #dc2626;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.home-button {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 12px 24px;
+}
+
+.home-button i {
+    font-size: 20px;
+}
+
+/* Main Menu Grid */
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.menu-button {
+    aspect-ratio: 1;
+    background: white;
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.menu-button i {
+    font-size: 32px;
+    color: #dc2626;
+}
+
+.menu-button span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* CPR Counter */
+.counter-box {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px auto;
+    text-align: center;
+    max-width: 480px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.counter-number {
+    font-size: 72px;
+    font-weight: 700;
+    color: #dc2626;
+    line-height: 1;
+}
+
+.counter-text {
+    font-size: 24px;
+    color: #374151;
+    margin-top: 8px;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.control-button {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-button.start {
+    background: #10b981;
+}
+
+.control-button.start.active {
+    background: #dc2626;
+}
+
+.control-button.mute {
+    background: #3b82f6;
+}
+
+.control-button.reset {
+    background: #6b7280;
+}
+/* מדידת דופק */
+.pulse-input {
+    text-align: center;
+    margin: 20px;
+}
+
+.pulse-input input {
+    width: 120px;
+    padding: 12px;
+    font-size: 24px;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.result-text {
+    font-size: 18px;
+    color: #374151;
+}
+
+/* מתורגמן */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.translations-list {
+    padding: 12px;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.translation-item {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.play-button {
+    background: none;
+    border: none;
+    color: #dc2626;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.time-left {
+    font-size: 18px;
+    color: #6b7280;
+    margin-top: 8px;
+}
+.cycle-summary {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px auto;
+    max-width: 480px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.cycle-summary h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.current-cycle {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.completed-cycles .cycle-item {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+/* Alerts */
+.alert {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 16px auto;
+    text-align: center;
+    max-width: 480px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.hidden {
+    display: none !important;
+}
